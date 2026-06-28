@@ -1,0 +1,886 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Project Horizon — Learning & Skill Development Platform | Ansh Soft Tech</title>
+  <meta name="description" content="Project Horizon by Ansh Soft Tech — A modern web-based Learning and Skill Development Platform for students, professionals, and learners." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js"></script>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+<!-- ══════════ NAVBAR ══════════ -->
+<nav class="navbar" id="navbar">
+  <div class="nav-container">
+    <a class="nav-brand" onclick="showPage('home')">
+      <div class="brand-logo">
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+          <path d="M12 2L2 19h20L12 2z" stroke="url(#lg1)" stroke-width="2" stroke-linejoin="round" fill="none"/>
+          <circle cx="12" cy="15" r="2.5" fill="url(#lg1)"/>
+          <defs>
+            <linearGradient id="lg1" x1="2" y1="2" x2="22" y2="19" gradientUnits="userSpaceOnUse">
+              <stop stop-color="#6366F1"/><stop offset="1" stop-color="#06B6D4"/>
+            </linearGradient>
+          </defs>
+        </svg>
+      </div>
+      <div class="brand-info">
+        <span class="brand-name">Project Horizon</span>
+        <span class="brand-sub">Ansh Soft Tech</span>
+      </div>
+    </a>
+
+    <div class="nav-links" id="navLinks">
+      <a class="nav-link active" onclick="showPage('home')" id="nav-home">Home</a>
+      <a class="nav-link" onclick="showPage('courses')" id="nav-courses">Courses</a>
+      <a class="nav-link" onclick="showPage('dashboard')" id="nav-dashboard">Dashboard</a>
+      <a class="nav-link" onclick="showPage('quiz')" id="nav-quiz">Assessments</a>
+      <a class="nav-link" onclick="showPage('certificates')" id="nav-certificates">Certificates</a>
+    </div>
+
+    <div class="nav-actions">
+      <button class="notif-btn" id="notifBell" onclick="toggleNotifications()">
+        <i data-lucide="bell" width="18" height="18"></i>
+        <span class="notif-dot" id="notifCount"></span>
+      </button>
+      <button class="btn-ghost" onclick="showModal('loginModal')">Sign in</button>
+      <button class="btn-primary" onclick="showModal('signupModal')">Get started</button>
+      <button class="hamburger" id="hamburger" onclick="toggleMenu()">
+        <i data-lucide="menu" width="20" height="20"></i>
+      </button>
+    </div>
+
+    <!-- Notifications Panel -->
+    <div class="notif-panel" id="notifPanel">
+      <div class="notif-header">
+        <span class="notif-title">Notifications</span>
+        <button class="notif-mark-all" onclick="clearNotifications()">Mark all read</button>
+      </div>
+      <div class="notif-list" id="notifList">
+        <div class="notif-item unread">
+          <span class="notif-dot-indicator" style="--dc:#6366F1"></span>
+          <div class="notif-body">
+            <strong>New Course Available</strong>
+            <p>"Node.js Advanced" is now live on the platform.</p>
+            <time>5 min ago</time>
+          </div>
+        </div>
+        <div class="notif-item unread">
+          <span class="notif-dot-indicator" style="--dc:#10B981"></span>
+          <div class="notif-body">
+            <strong>Quiz Result Ready</strong>
+            <p>Your React.js quiz score: 8/10 — Excellent!</p>
+            <time>1 hour ago</time>
+          </div>
+        </div>
+        <div class="notif-item unread">
+          <span class="notif-dot-indicator" style="--dc:#F59E0B"></span>
+          <div class="notif-body">
+            <strong>Announcement</strong>
+            <p>Live session: "AI Fundamentals" tomorrow at 6 PM IST.</p>
+            <time>3 hours ago</time>
+          </div>
+        </div>
+        <div class="notif-item unread">
+          <span class="notif-dot-indicator" style="--dc:#06B6D4"></span>
+          <div class="notif-body">
+            <strong>Certificate Issued</strong>
+            <p>Your UI/UX Design certificate is ready to download.</p>
+            <time>Yesterday</time>
+          </div>
+        </div>
+        <div class="notif-item">
+          <span class="notif-dot-indicator" style="--dc:#64748B"></span>
+          <div class="notif-body">
+            <strong>Weekly Report</strong>
+            <p>You studied 12 hours this week. Keep it up!</p>
+            <time>2 days ago</time>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<!-- ══════════ HOME PAGE ══════════ -->
+<div id="page-home" class="page active">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-bg-grid"></div>
+    <div class="hero-glow g1"></div>
+    <div class="hero-glow g2"></div>
+    <div class="hero-inner">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="badge-pulse"></span>
+          AI-Powered Learning Paths Now Available
+        </div>
+        <h1 class="hero-title">
+          Learn smarter.<br/>
+          <span class="text-gradient">Grow faster.</span>
+        </h1>
+        <p class="hero-desc">
+          Project Horizon is a centralized digital environment for acquiring knowledge, developing new skills, and tracking your learning progress — all in one place.
+        </p>
+        <div class="hero-cta">
+          <button class="btn-cta-primary" onclick="showPage('courses')">
+            Explore courses
+            <i data-lucide="arrow-right" width="18" height="18"></i>
+          </button>
+          <button class="btn-cta-ghost" onclick="showPage('dashboard')">
+            <i data-lucide="layout-dashboard" width="18" height="18"></i>
+            View dashboard
+          </button>
+        </div>
+        <div class="hero-stats">
+          <div class="hstat">
+            <div class="hstat-num" data-target="12000">0</div>
+            <div class="hstat-label">Active learners</div>
+          </div>
+          <div class="hstat-sep"></div>
+          <div class="hstat">
+            <div class="hstat-num" data-target="350">0</div>
+            <div class="hstat-label">Expert courses</div>
+          </div>
+          <div class="hstat-sep"></div>
+          <div class="hstat">
+            <div class="hstat-num" data-target="98">0</div>
+            <div class="hstat-label">% satisfaction</div>
+          </div>
+          <div class="hstat-sep"></div>
+          <div class="hstat">
+            <div class="hstat-num" data-target="48">0</div>
+            <div class="hstat-label">Industry experts</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="hero-visual">
+        <div class="hv-card hv-main">
+          <div class="hvc-topbar">
+            <div class="hvc-dots"><span></span><span></span><span></span></div>
+            <span class="hvc-label">Student Dashboard</span>
+          </div>
+          <div class="hvc-body">
+            <div class="hvc-stats-row">
+              <div class="hvc-stat"><div class="hvc-sval">4</div><div class="hvc-slbl">Enrolled</div></div>
+              <div class="hvc-stat"><div class="hvc-sval">2</div><div class="hvc-slbl">Completed</div></div>
+              <div class="hvc-stat"><div class="hvc-sval">890</div><div class="hvc-slbl">XP</div></div>
+            </div>
+            <div class="hvc-courses">
+              <div class="hvc-course">
+                <div class="hvc-cicon" style="background:rgba(99,102,241,.15);color:#6366F1">
+                  <i data-lucide="code-2" width="16" height="16"></i>
+                </div>
+                <div class="hvc-cinfo">
+                  <span>React.js Mastery</span>
+                  <div class="hvc-bar"><div style="width:72%;background:#6366F1"></div></div>
+                </div>
+                <span class="hvc-pct">72%</span>
+              </div>
+              <div class="hvc-course">
+                <div class="hvc-cicon" style="background:rgba(6,182,212,.15);color:#06B6D4">
+                  <i data-lucide="cpu" width="16" height="16"></i>
+                </div>
+                <div class="hvc-cinfo">
+                  <span>Python for AI</span>
+                  <div class="hvc-bar"><div style="width:45%;background:#06B6D4"></div></div>
+                </div>
+                <span class="hvc-pct">45%</span>
+              </div>
+              <div class="hvc-course">
+                <div class="hvc-cicon" style="background:rgba(16,185,129,.15);color:#10B981">
+                  <i data-lucide="check-circle" width="16" height="16"></i>
+                </div>
+                <div class="hvc-cinfo">
+                  <span>UI/UX Design Pro</span>
+                  <div class="hvc-bar"><div style="width:100%;background:#10B981"></div></div>
+                </div>
+                <span class="hvc-pct" style="color:#10B981">Done</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="hv-badge hv-b1">
+          <div class="hvb-icon" style="background:rgba(16,185,129,.15);color:#10B981">
+            <i data-lucide="award" width="18" height="18"></i>
+          </div>
+          <div>
+            <strong>Certificate Earned</strong>
+            <span>React.js Mastery</span>
+          </div>
+        </div>
+        <div class="hv-badge hv-b2">
+          <div class="hvb-icon" style="background:rgba(245,158,11,.15);color:#F59E0B">
+            <i data-lucide="zap" width="18" height="18"></i>
+          </div>
+          <div>
+            <strong>14-Day Streak</strong>
+            <span>Keep it up!</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LOGOS / TRUST BAR -->
+  <section class="trust-section">
+    <div class="trust-inner">
+      <p class="trust-label">Trusted by learners from top institutions</p>
+      <div class="trust-logos">
+        <span>IIT Delhi</span><span>IIT Bombay</span><span>BITS Pilani</span><span>NIT Trichy</span><span>VIT Vellore</span><span>Anna University</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- FEATURES -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-label">Why Project Horizon</div>
+      <h2 class="section-title">Everything you need<br/>to <span class="text-gradient">succeed</span></h2>
+      <p class="section-sub">A complete ecosystem built for learners, instructors, and administrators.</p>
+      <div class="features-grid">
+        <div class="feat-card">
+          <div class="feat-icon" style="--fi:#6366F1">
+            <i data-lucide="book-open" width="22" height="22"></i>
+          </div>
+          <h3>Rich Course Library</h3>
+          <p>Access 350+ expert-crafted courses across web development, AI, data science, design, and more.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon" style="--fi:#06B6D4">
+            <i data-lucide="activity" width="22" height="22"></i>
+          </div>
+          <h3>Progress Tracking</h3>
+          <p>Real-time analytics and personalized dashboards to monitor every step of your learning journey.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon" style="--fi:#8B5CF6">
+            <i data-lucide="brain" width="22" height="22"></i>
+          </div>
+          <h3>Smart Assessments</h3>
+          <p>Adaptive quizzes and assignments that adjust to your skill level with instant feedback.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon" style="--fi:#F59E0B">
+            <i data-lucide="award" width="22" height="22"></i>
+          </div>
+          <h3>Certificates</h3>
+          <p>Earn industry-recognized certificates upon completion with unique blockchain-verified IDs.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon" style="--fi:#10B981">
+            <i data-lucide="message-circle" width="22" height="22"></i>
+          </div>
+          <h3>AI Learning Assistant</h3>
+          <p>Get 24/7 personalized recommendations and concept explanations powered by Gemini AI.</p>
+        </div>
+        <div class="feat-card">
+          <div class="feat-icon" style="--fi:#EC4899">
+            <i data-lucide="users" width="22" height="22"></i>
+          </div>
+          <h3>Community</h3>
+          <p>Connect with peers, join live sessions, and collaborate in our thriving learner community.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- MODULES TABS -->
+  <section class="section alt-bg">
+    <div class="section-inner">
+      <div class="section-label">Platform Modules</div>
+      <h2 class="section-title">Built for <span class="text-gradient">every role</span></h2>
+      <div class="tabs-container">
+        <div class="tabs-nav">
+          <button class="tab-btn active" onclick="switchModule(this,'student')">
+            <i data-lucide="graduation-cap" width="16" height="16"></i> Student
+          </button>
+          <button class="tab-btn" onclick="switchModule(this,'instructor')">
+            <i data-lucide="presentation" width="16" height="16"></i> Instructor
+          </button>
+          <button class="tab-btn" onclick="switchModule(this,'admin')">
+            <i data-lucide="shield" width="16" height="16"></i> Admin
+          </button>
+        </div>
+
+        <div class="tab-panel active" id="module-student">
+          <div class="tab-content-grid">
+            <div class="tab-list">
+              <div class="tab-item">
+                <div class="ti-check" style="--tc:#6366F1"><i data-lucide="check" width="12" height="12"></i></div>
+                <div><strong>User Registration &amp; Login</strong><p>Secure JWT-based auth with role-based access control</p></div>
+              </div>
+              <div class="tab-item">
+                <div class="ti-check" style="--tc:#6366F1"><i data-lucide="check" width="12" height="12"></i></div>
+                <div><strong>Course Enrollment</strong><p>Browse, filter, and enroll in courses with one click</p></div>
+              </div>
+              <div class="tab-item">
+                <div class="ti-check" style="--tc:#6366F1"><i data-lucide="check" width="12" height="12"></i></div>
+                <div><strong>Access Learning Materials</strong><p>Videos, PDFs, slides, and interactive content</p></div>
+              </div>
+              <div class="tab-item">
+                <div class="ti-check" style="--tc:#6366F1"><i data-lucide="check" width="12" height="12"></i></div>
+                <div><strong>Take Online Quizzes</strong><p>Timed adaptive assessments with instant feedback</p></div>
+              </div>
+              <div class="tab-item">
+                <div class="ti-check" style="--tc:#6366F1"><i data-lucide="check" width="12" height="12"></i></div>
+                <div><strong>View Progress Reports</strong><p>Detailed analytics, skill charts, and trends</p></div>
+              </div>
+              <div class="tab-item">
+                <div class="ti-check" style="--tc:#6366F1"><i data-lucide="check" width="12" height="12"></i></div>
+                <div><strong>Download Certificates</strong><p>PDF certificates with unique verification codes</p></div>
+              </div>
+            </div>
+            <div class="tab-preview">
+              <div class="preview-card">
+                <div class="pc-bar"><div class="pc-dots"><span></span><span></span><span></span></div><span>Student View</span></div>
+                <div class="pc-body">
+                  <div class="pc-stats"><div class="pcs"><div class="pcs-n">4</div><div class="pcs-l">Enrolled</div></div><div class="pcs"><div class="pcs-n">2</div><div class="pcs-l">Completed</div></div><div class="pcs"><div class="pcs-n">890</div><div class="pcs-l">XP</div></div></div>
+                  <div class="pc-rows">
+                    <div class="pc-row"><i data-lucide="code-2" width="14" height="14" style="color:#6366F1"></i><div class="pcr-info"><span>React.js</span><div class="pcr-bar"><div style="width:72%"></div></div></div><span>72%</span></div>
+                    <div class="pc-row"><i data-lucide="cpu" width="14" height="14" style="color:#06B6D4"></i><div class="pcr-info"><span>Python for AI</span><div class="pcr-bar"><div style="width:45%;background:#06B6D4"></div></div></div><span>45%</span></div>
+                    <div class="pc-row"><i data-lucide="palette" width="14" height="14" style="color:#10B981"></i><div class="pcr-info"><span>UI/UX Design</span><div class="pcr-bar"><div style="width:100%;background:#10B981"></div></div></div><span style="color:#10B981">Done</span></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="module-instructor">
+          <div class="tab-content-grid">
+            <div class="tab-list">
+              <div class="tab-item">
+                <div class="ti-check" style="--tc:#06B6D4"><i data-lucide="check" width="12" height="12"></i></div>
+                <div><strong>Create and Manage Courses</strong><p>Drag-and-drop course builder with rich media support</p></div>
+              </div>
+              <div class="tab-item">
+                <div class="ti-check" style="--tc:#06B6D4"><i data-lucide="check" width="12" height="12"></i></div>
+                <div><strong>Upload Learning Content</strong><p>Video, PDF, PPT via Cloudinary CDN</p></div>
+              </div>
+              <div class="tab-item">
+                <div class="ti-check" style="--tc:#06B6D4"><i data-lucide="check" width="12" height="12"></i></div>
+                <div><strong>Create Quizzes &amp; Assignments</strong><p>MCQ, coding challenges with auto-grading</p></div>
+              </div>
+              <div class="tab-item">
+                <div class="ti-check" style="--tc:#06B6D4"><i data-lucide="check" width="12" height="12"></i></div>
+                <div><strong>Monitor Student Performance</strong><p>Engagement analytics and completion reports</p></div>
+              </div>
+            </div>
+            <div class="tab-preview">
+              <div class="preview-card">
+                <div class="pc-bar"><div class="pc-dots"><span></span><span></span><span></span></div><span>Instructor Panel</span></div>
+                <div class="pc-body">
+                  <div class="pc-stats"><div class="pcs"><div class="pcs-n" style="color:#06B6D4">6</div><div class="pcs-l">Courses</div></div><div class="pcs"><div class="pcs-n" style="color:#06B6D4">248</div><div class="pcs-l">Students</div></div><div class="pcs"><div class="pcs-n" style="color:#06B6D4">4.8</div><div class="pcs-l">Rating</div></div></div>
+                  <div class="pc-chart">
+                    <div class="mini-bars">
+                      <div class="mb" style="height:55%;--mbc:#06B6D4"><span>Mon</span></div>
+                      <div class="mb" style="height:80%;--mbc:#06B6D4"><span>Tue</span></div>
+                      <div class="mb" style="height:45%;--mbc:#06B6D4"><span>Wed</span></div>
+                      <div class="mb" style="height:90%;--mbc:#06B6D4"><span>Thu</span></div>
+                      <div class="mb" style="height:65%;--mbc:#06B6D4"><span>Fri</span></div>
+                      <div class="mb" style="height:50%;--mbc:#06B6D4"><span>Sat</span></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="tab-panel" id="module-admin">
+          <div class="tab-content-grid">
+            <div class="tab-list">
+              <div class="tab-item">
+                <div class="ti-check" style="--tc:#8B5CF6"><i data-lucide="check" width="12" height="12"></i></div>
+                <div><strong>User Management</strong><p>Manage students, instructors, roles and permissions</p></div>
+              </div>
+              <div class="tab-item">
+                <div class="ti-check" style="--tc:#8B5CF6"><i data-lucide="check" width="12" height="12"></i></div>
+                <div><strong>Course Management</strong><p>Approve, feature, or archive courses platform-wide</p></div>
+              </div>
+              <div class="tab-item">
+                <div class="ti-check" style="--tc:#8B5CF6"><i data-lucide="check" width="12" height="12"></i></div>
+                <div><strong>Analytics Dashboard</strong><p>Real-time KPIs, revenue charts, and engagement metrics</p></div>
+              </div>
+              <div class="tab-item">
+                <div class="ti-check" style="--tc:#8B5CF6"><i data-lucide="check" width="12" height="12"></i></div>
+                <div><strong>Content Approval &amp; Monitoring</strong><p>Review and publish all instructor-uploaded content</p></div>
+              </div>
+            </div>
+            <div class="tab-preview">
+              <div class="preview-card">
+                <div class="pc-bar"><div class="pc-dots"><span></span><span></span><span></span></div><span>Admin Console</span></div>
+                <div class="pc-body">
+                  <div class="admin-kpis">
+                    <div class="akpi"><div class="akpi-n">12,482</div><div class="akpi-l">Total Users</div><div class="akpi-t up">+12%</div></div>
+                    <div class="akpi"><div class="akpi-n">348</div><div class="akpi-l">Courses</div><div class="akpi-t up">+8%</div></div>
+                    <div class="akpi"><div class="akpi-n">4.2L</div><div class="akpi-l">Revenue</div><div class="akpi-t up">+23%</div></div>
+                    <div class="akpi"><div class="akpi-n">96%</div><div class="akpi-l">Uptime</div><div class="akpi-t">Stable</div></div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TECH STACK -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="section-label">Technology Stack</div>
+      <h2 class="section-title">Built with <span class="text-gradient">modern tech</span></h2>
+      <div class="tech-row">
+        <div class="tech-chip"><i data-lucide="code-2" width="15" height="15"></i> React.js</div>
+        <div class="tech-chip"><i data-lucide="server" width="15" height="15"></i> Node.js</div>
+        <div class="tech-chip"><i data-lucide="layers" width="15" height="15"></i> Express.js</div>
+        <div class="tech-chip"><i data-lucide="database" width="15" height="15"></i> MongoDB</div>
+        <div class="tech-chip"><i data-lucide="key" width="15" height="15"></i> JWT Auth</div>
+        <div class="tech-chip"><i data-lucide="cloud" width="15" height="15"></i> Cloudinary</div>
+        <div class="tech-chip"><i data-lucide="cpu" width="15" height="15"></i> Gemini API</div>
+        <div class="tech-chip"><i data-lucide="wind" width="15" height="15"></i> Tailwind CSS</div>
+        <div class="tech-chip"><i data-lucide="shield-check" width="15" height="15"></i> HTTPS / SSL</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="section">
+    <div class="section-inner">
+      <div class="cta-card">
+        <div class="cta-glow"></div>
+        <div class="cta-text">
+          <div class="section-label">Get started today</div>
+          <h2>Ready to start your<br/><span class="text-gradient">learning journey?</span></h2>
+          <p>Join 12,000+ learners already on Project Horizon. Free to sign up.</p>
+        </div>
+        <div class="cta-actions">
+          <button class="btn-cta-primary" onclick="showModal('signupModal')">Create free account <i data-lucide="arrow-right" width="16" height="16"></i></button>
+          <button class="btn-cta-ghost" onclick="showPage('courses')">Browse courses</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="brand-logo small">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none"><path d="M12 2L2 19h20L12 2z" stroke="url(#flg)" stroke-width="2" stroke-linejoin="round"/><circle cx="12" cy="15" r="2.5" fill="url(#flg)"/><defs><linearGradient id="flg" x1="2" y1="2" x2="22" y2="19" gradientUnits="userSpaceOnUse"><stop stop-color="#6366F1"/><stop offset="1" stop-color="#06B6D4"/></linearGradient></defs></svg>
+        </div>
+        <div>
+          <strong>Project Horizon</strong>
+          <p>© 2025 Ansh Soft Tech. All rights reserved.</p>
+        </div>
+      </div>
+      <nav class="footer-nav">
+        <a onclick="showPage('courses')">Courses</a>
+        <a onclick="showPage('dashboard')">Dashboard</a>
+        <a onclick="showPage('quiz')">Assessments</a>
+        <a onclick="showPage('certificates')">Certificates</a>
+      </nav>
+    </div>
+  </footer>
+</div>
+
+<!-- ══════════ COURSES PAGE ══════════ -->
+<div id="page-courses" class="page">
+  <div class="page-header">
+    <div class="page-header-inner">
+      <h1>Course <span class="text-gradient">Catalog</span></h1>
+      <p>Explore our library of 350+ expert-led courses.</p>
+    </div>
+  </div>
+  <div class="courses-wrap">
+    <div class="course-filters">
+      <div class="search-wrap">
+        <i data-lucide="search" width="16" height="16" class="search-icon"></i>
+        <input type="text" class="search-input" id="courseSearch" placeholder="Search courses..." oninput="filterCourses()" />
+      </div>
+      <div class="filter-pills">
+        <button class="fpill active" onclick="setCategoryFilter(this,'all')">All</button>
+        <button class="fpill" onclick="setCategoryFilter(this,'web')">Web Dev</button>
+        <button class="fpill" onclick="setCategoryFilter(this,'ai')">AI &amp; ML</button>
+        <button class="fpill" onclick="setCategoryFilter(this,'design')">Design</button>
+        <button class="fpill" onclick="setCategoryFilter(this,'data')">Data Science</button>
+        <button class="fpill" onclick="setCategoryFilter(this,'mobile')">Mobile</button>
+      </div>
+    </div>
+    <div class="courses-grid" id="coursesGrid"></div>
+  </div>
+</div>
+
+<!-- ══════════ DASHBOARD PAGE ══════════ -->
+<div id="page-dashboard" class="page">
+  <div class="dash-layout">
+    <aside class="dash-sidebar">
+      <div class="dash-user">
+        <div class="dash-avatar">AS</div>
+        <div class="dash-user-info">
+          <strong>Aryan Sharma</strong>
+          <span>Student</span>
+        </div>
+      </div>
+      <div class="xp-wrap">
+        <div class="xp-row"><span>XP Progress</span><span>890 / 1300</span></div>
+        <div class="xp-track"><div class="xp-fill" style="width:68%"></div></div>
+      </div>
+      <nav class="dash-nav">
+        <a class="dn-item active" onclick="showDashSection('overview')" id="dn-overview">
+          <i data-lucide="layout-dashboard" width="16" height="16"></i> Overview
+        </a>
+        <a class="dn-item" onclick="showDashSection('my-courses')" id="dn-my-courses">
+          <i data-lucide="book-open" width="16" height="16"></i> My Courses
+        </a>
+        <a class="dn-item" onclick="showDashSection('progress')" id="dn-progress">
+          <i data-lucide="bar-chart-2" width="16" height="16"></i> Progress
+        </a>
+        <a class="dn-item" onclick="showDashSection('analytics')" id="dn-analytics">
+          <i data-lucide="trending-up" width="16" height="16"></i> Analytics
+        </a>
+        <a class="dn-item" onclick="showPage('certificates')">
+          <i data-lucide="award" width="16" height="16"></i> Certificates
+        </a>
+      </nav>
+    </aside>
+
+    <main class="dash-main">
+      <!-- OVERVIEW -->
+      <div class="ds active" id="ds-overview">
+        <div class="ds-header">
+          <h2>Welcome back, <span class="text-gradient">Aryan</span></h2>
+          <p>You have 2 courses in progress. Keep going!</p>
+        </div>
+        <div class="kpi-grid">
+          <div class="kpi-card">
+            <div class="kpi-icon" style="--ki:#6366F1"><i data-lucide="book-open" width="20" height="20"></i></div>
+            <div class="kpi-info"><span class="kpi-val">4</span><span class="kpi-lbl">Enrolled</span></div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-icon" style="--ki:#10B981"><i data-lucide="check-circle" width="20" height="20"></i></div>
+            <div class="kpi-info"><span class="kpi-val">2</span><span class="kpi-lbl">Completed</span></div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-icon" style="--ki:#F59E0B"><i data-lucide="award" width="20" height="20"></i></div>
+            <div class="kpi-info"><span class="kpi-val">3</span><span class="kpi-lbl">Certificates</span></div>
+          </div>
+          <div class="kpi-card">
+            <div class="kpi-icon" style="--ki:#06B6D4"><i data-lucide="zap" width="20" height="20"></i></div>
+            <div class="kpi-info"><span class="kpi-val">890</span><span class="kpi-lbl">XP Points</span></div>
+          </div>
+        </div>
+        <div class="dash-grid-2">
+          <div class="dash-card">
+            <div class="dc-header"><h3>Continue Learning</h3></div>
+            <div class="cl-list">
+              <div class="cl-item">
+                <div class="cl-icon" style="--cli:#6366F1"><i data-lucide="code-2" width="18" height="18"></i></div>
+                <div class="cl-info"><span>React.js Mastery</span><div class="cl-bar"><div style="width:72%;background:#6366F1"></div></div><small>Module 8 of 12 — 72%</small></div>
+                <button class="cl-btn" onclick="showPage('courses')">Resume <i data-lucide="chevron-right" width="14" height="14"></i></button>
+              </div>
+              <div class="cl-item">
+                <div class="cl-icon" style="--cli:#06B6D4"><i data-lucide="cpu" width="18" height="18"></i></div>
+                <div class="cl-info"><span>Python for AI</span><div class="cl-bar"><div style="width:45%;background:#06B6D4"></div></div><small>Module 5 of 10 — 45%</small></div>
+                <button class="cl-btn" onclick="showPage('courses')">Resume <i data-lucide="chevron-right" width="14" height="14"></i></button>
+              </div>
+              <div class="cl-item">
+                <div class="cl-icon" style="--cli:#10B981"><i data-lucide="database" width="18" height="18"></i></div>
+                <div class="cl-info"><span>MongoDB Essentials</span><div class="cl-bar"><div style="width:20%;background:#10B981"></div></div><small>Module 2 of 8 — 20%</small></div>
+                <button class="cl-btn" onclick="showPage('courses')">Resume <i data-lucide="chevron-right" width="14" height="14"></i></button>
+              </div>
+            </div>
+          </div>
+          <div class="dash-card">
+            <div class="dc-header"><h3>Recent Activity</h3></div>
+            <div class="act-list">
+              <div class="act-item"><div class="act-dot" style="background:#10B981"></div><div><span>Completed Quiz — React Hooks</span><small>2 hours ago</small></div></div>
+              <div class="act-item"><div class="act-dot" style="background:#6366F1"></div><div><span>Watched Lecture — Python Lists</span><small>Yesterday</small></div></div>
+              <div class="act-item"><div class="act-dot" style="background:#F59E0B"></div><div><span>Earned Badge — Fast Learner</span><small>2 days ago</small></div></div>
+              <div class="act-item"><div class="act-dot" style="background:#06B6D4"></div><div><span>Enrolled — MongoDB Essentials</span><small>3 days ago</small></div></div>
+              <div class="act-item"><div class="act-dot" style="background:#EC4899"></div><div><span>Downloaded Certificate — UI/UX</span><small>1 week ago</small></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- MY COURSES -->
+      <div class="ds" id="ds-my-courses">
+        <div class="ds-header"><h2>My <span class="text-gradient">Courses</span></h2></div>
+        <div class="my-courses-grid" id="myCoursesGrid"></div>
+      </div>
+
+      <!-- PROGRESS -->
+      <div class="ds" id="ds-progress">
+        <div class="ds-header"><h2>Learning <span class="text-gradient">Progress</span></h2></div>
+        <div class="dash-grid-2">
+          <div class="dash-card">
+            <div class="dc-header"><h3>Weekly Study Hours</h3></div>
+            <div class="bar-chart" style="height:140px;margin-top:1rem">
+              <div class="bc-bar" style="height:50%;--bcc:#6366F1"><span>Mon</span></div>
+              <div class="bc-bar" style="height:80%;--bcc:#6366F1"><span>Tue</span></div>
+              <div class="bc-bar" style="height:35%;--bcc:#6366F1"><span>Wed</span></div>
+              <div class="bc-bar" style="height:95%;--bcc:#6366F1"><span>Thu</span></div>
+              <div class="bc-bar" style="height:60%;--bcc:#6366F1"><span>Fri</span></div>
+              <div class="bc-bar" style="height:40%;--bcc:#6366F1"><span>Sat</span></div>
+              <div class="bc-bar" style="height:25%;--bcc:#6366F1"><span>Sun</span></div>
+            </div>
+          </div>
+          <div class="dash-card">
+            <div class="dc-header"><h3>Skill Proficiency</h3></div>
+            <div class="skill-list">
+              <div class="skill-row"><span>React.js</span><div class="sk-track"><div style="width:72%;background:linear-gradient(90deg,#6366F1,#8B5CF6)"></div></div><span>72%</span></div>
+              <div class="skill-row"><span>Python</span><div class="sk-track"><div style="width:45%;background:linear-gradient(90deg,#06B6D4,#3B82F6)"></div></div><span>45%</span></div>
+              <div class="skill-row"><span>MongoDB</span><div class="sk-track"><div style="width:20%;background:linear-gradient(90deg,#10B981,#06B6D4)"></div></div><span>20%</span></div>
+              <div class="skill-row"><span>UI/UX</span><div class="sk-track"><div style="width:100%;background:linear-gradient(90deg,#EC4899,#F59E0B)"></div></div><span>100%</span></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ANALYTICS -->
+      <div class="ds" id="ds-analytics">
+        <div class="ds-header"><h2>Performance <span class="text-gradient">Analytics</span></h2></div>
+        <div class="analytics-grid">
+          <div class="dash-card analytics-card">
+            <div class="dc-header"><h3>Overall Performance</h3></div>
+            <div class="perf-ring-wrap">
+              <svg viewBox="0 0 120 120" class="perf-ring">
+                <circle cx="60" cy="60" r="50" fill="none" stroke="rgba(99,102,241,.1)" stroke-width="10"/>
+                <circle cx="60" cy="60" r="50" fill="none" stroke="url(#rg)" stroke-width="10" stroke-linecap="round" stroke-dasharray="314" stroke-dashoffset="88" transform="rotate(-90 60 60)"/>
+                <defs><linearGradient id="rg" x1="0" y1="0" x2="1" y2="0"><stop stop-color="#6366F1"/><stop offset="1" stop-color="#06B6D4"/></linearGradient></defs>
+                <text x="60" y="56" text-anchor="middle" fill="white" font-size="20" font-weight="700" font-family="Space Grotesk">72%</text>
+                <text x="60" y="72" text-anchor="middle" fill="#64748B" font-size="9" font-family="Inter">Overall Score</text>
+              </svg>
+            </div>
+            <div class="perf-stats">
+              <div class="ps-item"><span class="ps-v" style="color:#10B981">8/10</span><span class="ps-k">Avg Quiz</span></div>
+              <div class="ps-item"><span class="ps-v" style="color:#F59E0B">12 hrs</span><span class="ps-k">This Week</span></div>
+              <div class="ps-item"><span class="ps-v" style="color:#EC4899">14</span><span class="ps-k">Day Streak</span></div>
+            </div>
+          </div>
+          <div class="dash-card">
+            <div class="dc-header"><h3>Monthly Activity</h3></div>
+            <div class="heatmap" id="heatmap"></div>
+          </div>
+          <div class="dash-card">
+            <div class="dc-header"><h3>Achievements</h3></div>
+            <div class="ach-grid">
+              <div class="ach-item unlocked"><i data-lucide="flame" width="22" height="22" style="color:#F59E0B"></i><span>14-Day Streak</span></div>
+              <div class="ach-item unlocked"><i data-lucide="zap" width="22" height="22" style="color:#6366F1"></i><span>Fast Learner</span></div>
+              <div class="ach-item unlocked"><i data-lucide="target" width="22" height="22" style="color:#10B981"></i><span>Quiz Master</span></div>
+              <div class="ach-item unlocked"><i data-lucide="star" width="22" height="22" style="color:#06B6D4"></i><span>First Course</span></div>
+              <div class="ach-item locked"><i data-lucide="crown" width="22" height="22"></i><span>Top Performer</span></div>
+              <div class="ach-item locked"><i data-lucide="gem" width="22" height="22"></i><span>10 Courses</span></div>
+            </div>
+          </div>
+          <div class="dash-card">
+            <div class="dc-header"><h3>Announcements</h3></div>
+            <div class="ann-list">
+              <div class="ann-item"><div class="ann-tag live">LIVE</div><div><strong>AI Fundamentals Webinar</strong><p>Tomorrow at 6 PM IST — Join 240 others</p></div></div>
+              <div class="ann-item"><div class="ann-tag new">NEW</div><div><strong>Node.js Advanced Course</strong><p>Now available — Enroll before June 30</p></div></div>
+              <div class="ann-item"><div class="ann-tag info">INFO</div><div><strong>Platform Maintenance</strong><p>Sunday 2 AM – 4 AM IST</p></div></div>
+              <div class="ann-item"><div class="ann-tag info">INFO</div><div><strong>New Certificate Templates</strong><p>Redesigned certificates now available</p></div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+</div>
+
+<!-- ══════════ QUIZ PAGE ══════════ -->
+<div id="page-quiz" class="page">
+  <div class="page-header">
+    <div class="page-header-inner">
+      <h1>Skill <span class="text-gradient">Assessments</span></h1>
+      <p>Test your knowledge with our adaptive quiz engine.</p>
+    </div>
+  </div>
+  <div class="quiz-wrap">
+    <div id="quiz-select-screen">
+      <div class="quiz-topics">
+        <div class="qtopic-card" onclick="startQuiz('react')">
+          <div class="qtc-icon" style="background:rgba(99,102,241,.1);color:#6366F1"><i data-lucide="code-2" width="28" height="28"></i></div>
+          <h3>React.js Fundamentals</h3>
+          <p>10 questions · 15 mins</p>
+          <div class="qtc-meta"><span class="qlevel intermediate">Intermediate</span><span class="qlevel-type">MCQ</span></div>
+          <button class="btn-primary" style="margin-top:1.25rem;width:100%">Start Assessment</button>
+        </div>
+        <div class="qtopic-card" onclick="startQuiz('python')">
+          <div class="qtc-icon" style="background:rgba(6,182,212,.1);color:#06B6D4"><i data-lucide="cpu" width="28" height="28"></i></div>
+          <h3>Python Essentials</h3>
+          <p>10 questions · 12 mins</p>
+          <div class="qtc-meta"><span class="qlevel beginner">Beginner</span><span class="qlevel-type">MCQ</span></div>
+          <button class="btn-primary" style="margin-top:1.25rem;width:100%">Start Assessment</button>
+        </div>
+        <div class="qtopic-card" onclick="startQuiz('js')">
+          <div class="qtc-icon" style="background:rgba(245,158,11,.1);color:#F59E0B"><i data-lucide="braces" width="28" height="28"></i></div>
+          <h3>JavaScript Advanced</h3>
+          <p>10 questions · 20 mins</p>
+          <div class="qtc-meta"><span class="qlevel advanced">Advanced</span><span class="qlevel-type">MCQ</span></div>
+          <button class="btn-primary" style="margin-top:1.25rem;width:100%">Start Assessment</button>
+        </div>
+        <div class="qtopic-card" onclick="startQuiz('ai')">
+          <div class="qtc-icon" style="background:rgba(139,92,246,.1);color:#8B5CF6"><i data-lucide="brain" width="28" height="28"></i></div>
+          <h3>AI &amp; Machine Learning</h3>
+          <p>10 questions · 18 mins</p>
+          <div class="qtc-meta"><span class="qlevel intermediate">Intermediate</span><span class="qlevel-type">MCQ</span></div>
+          <button class="btn-primary" style="margin-top:1.25rem;width:100%">Start Assessment</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="quiz-active-screen" class="hidden">
+      <div class="quiz-header-bar">
+        <div class="qhb-left">
+          <span id="quiz-topic-label" class="qhb-topic">React.js</span>
+          <span id="quiz-q-counter" class="qhb-count">Q 1 / 10</span>
+        </div>
+        <div class="quiz-timer" id="quizTimer">15:00</div>
+      </div>
+      <div class="quiz-prog-bar"><div id="quizProgressFill" style="width:10%"></div></div>
+      <div class="quiz-card">
+        <div class="quiz-q" id="quizQuestion"></div>
+        <div class="quiz-opts" id="quizOptions"></div>
+        <div class="quiz-nav">
+          <button class="btn-ghost" id="quizPrev" onclick="prevQuestion()" disabled>
+            <i data-lucide="chevron-left" width="16" height="16"></i> Previous
+          </button>
+          <button class="btn-primary" id="quizNext" onclick="nextQuestion()">
+            Next <i data-lucide="chevron-right" width="16" height="16"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div id="quiz-result-screen" class="hidden">
+      <div class="result-card">
+        <div class="result-icon" id="resultIcon">
+          <i data-lucide="check-circle" width="48" height="48" style="color:#10B981"></i>
+        </div>
+        <h2 id="resultTitle">Excellent!</h2>
+        <div class="result-score" id="resultScore">8 / 10</div>
+        <p id="resultMsg">Outstanding performance! You qualify for the certificate.</p>
+        <div class="result-btns">
+          <button class="btn-primary" onclick="showPage('certificates')">Get Certificate</button>
+          <button class="btn-ghost" onclick="resetQuiz()">Try Again</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ══════════ CERTIFICATES PAGE ══════════ -->
+<div id="page-certificates" class="page">
+  <div class="page-header">
+    <div class="page-header-inner">
+      <h1>My <span class="text-gradient">Certificates</span></h1>
+      <p>Download and share your verified achievements.</p>
+    </div>
+  </div>
+  <div class="cert-wrap">
+    <div class="cert-grid" id="certGrid"></div>
+  </div>
+</div>
+
+<!-- ══════════ MODALS ══════════ -->
+<div class="modal-overlay" id="loginModal" onclick="closeModalOutside(event,'loginModal')">
+  <div class="modal">
+    <button class="modal-x" onclick="closeModal('loginModal')"><i data-lucide="x" width="16" height="16"></i></button>
+    <div class="modal-icon"><i data-lucide="lock" width="28" height="28" style="color:#6366F1"></i></div>
+    <h2>Welcome back</h2>
+    <p class="modal-sub">Sign in to continue your learning journey</p>
+    <form onsubmit="handleLogin(event)">
+      <div class="fg">
+        <label>Email address</label>
+        <input type="email" id="loginEmail" placeholder="you@example.com" required />
+      </div>
+      <div class="fg">
+        <label>Password</label>
+        <input type="password" id="loginPass" placeholder="Enter your password" required />
+      </div>
+      <button type="submit" class="btn-primary fw">Sign in</button>
+    </form>
+    <p class="modal-switch">No account? <a onclick="switchModal('loginModal','signupModal')">Create one</a></p>
+  </div>
+</div>
+
+<div class="modal-overlay" id="signupModal" onclick="closeModalOutside(event,'signupModal')">
+  <div class="modal">
+    <button class="modal-x" onclick="closeModal('signupModal')"><i data-lucide="x" width="16" height="16"></i></button>
+    <div class="modal-icon"><i data-lucide="rocket" width="28" height="28" style="color:#6366F1"></i></div>
+    <h2>Create account</h2>
+    <p class="modal-sub">Join 12,000+ learners on Project Horizon</p>
+    <form onsubmit="handleSignup(event)">
+      <div class="fg">
+        <label>Full name</label>
+        <input type="text" id="signupName" placeholder="Aryan Sharma" required />
+      </div>
+      <div class="fg">
+        <label>Email address</label>
+        <input type="email" id="signupEmail" placeholder="you@example.com" required />
+      </div>
+      <div class="fg">
+        <label>Password</label>
+        <input type="password" id="signupPass" placeholder="Min. 6 characters" required />
+      </div>
+      <div class="fg">
+        <label>I am a</label>
+        <select id="signupRole">
+          <option value="student">Student</option>
+          <option value="instructor">Instructor</option>
+        </select>
+      </div>
+      <button type="submit" class="btn-primary fw">Create account</button>
+    </form>
+    <p class="modal-switch">Already have an account? <a onclick="switchModal('signupModal','loginModal')">Sign in</a></p>
+  </div>
+</div>
+
+<!-- Toast -->
+<div class="toast" id="toast"></div>
+
+<!-- AI Chat -->
+<button class="chat-fab" id="chatFab" onclick="toggleChat()">
+  <i data-lucide="message-circle" width="22" height="22"></i>
+  <span class="chat-fab-label">AI</span>
+</button>
+<div class="chat-window" id="chatWindow">
+  <div class="chat-header">
+    <div class="chat-agent">
+      <div class="chat-agent-icon"><i data-lucide="bot" width="18" height="18"></i></div>
+      <div><strong>Horizon AI</strong><span>Powered by Gemini</span></div>
+    </div>
+    <button onclick="toggleChat()" class="chat-close-btn"><i data-lucide="x" width="16" height="16"></i></button>
+  </div>
+  <div class="chat-msgs" id="chatMessages">
+    <div class="chat-msg bot">
+      <div class="cm-ava"><i data-lucide="bot" width="14" height="14"></i></div>
+      <div class="cm-bubble">Hi! I'm Horizon AI. I can recommend courses, explain concepts, or help you track your progress. How can I help?</div>
+    </div>
+  </div>
+  <div class="chat-input-row">
+    <input type="text" id="chatInput" placeholder="Ask me anything..." onkeydown="if(event.key==='Enter') sendChat()" />
+    <button onclick="sendChat()" class="chat-send-btn"><i data-lucide="send" width="16" height="16"></i></button>
+  </div>
+</div>
+
+<script src="app.js"></script>
+<script>
+  // Initialize Lucide icons
+  lucide.createIcons();
+  // Re-run after dynamic content loads
+  document.addEventListener('iconsReady', () => lucide.createIcons());
+</script>
+</body>
+</html>
