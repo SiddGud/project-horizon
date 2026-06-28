@@ -4,7 +4,7 @@
 // ══════════════════════════════════════════════════
 
 // ─── Backend API Configuration ───
-const API_BASE = 'http://localhost:5000/api';
+const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1' ? 'http://localhost:5000/api' : '/api';
 let authToken = localStorage.getItem('horizon_token') || null;
 let currentUser = JSON.parse(localStorage.getItem('horizon_user') || 'null');
 
@@ -185,7 +185,19 @@ function showPage(name) {
   closeNotifications();
 
   if (name === 'courses') renderCourses();
-  if (name === 'dashboard') { renderMyCourses(); generateHeatmap(); }
+  if (name === 'dashboard') {
+    if (currentUser) {
+      const kpis = document.querySelectorAll('.kpi-val');
+      if (kpis.length >= 4) {
+        kpis[0].textContent = currentUser.enrolledCourses ? currentUser.enrolledCourses.length : 0;
+        kpis[1].textContent = currentUser.enrolledCourses ? currentUser.enrolledCourses.filter(c => c.progress === 100).length : 0;
+        kpis[2].textContent = currentUser.certificates ? currentUser.certificates.length : 0;
+        kpis[3].textContent = currentUser.xp || 0;
+      }
+    }
+    renderMyCourses();
+    generateHeatmap();
+  }
   if (name === 'certificates') renderCertificates();
 }
 
@@ -350,8 +362,56 @@ function renderCertificates() {
 }
 
 function downloadCert(title) {
-  showToast(`Downloading "${title}" certificate...`);
-  setTimeout(() => showToast('Certificate downloaded successfully!'), 1500);
+  showToast(`Generating certificate for "${title}"...`);
+  const certWindow = window.open('', '_blank');
+  certWindow.document.write(`
+    <html>
+      <head>
+        <title>Certificate - ${title}</title>
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+        <style>
+          body { font-family: 'Inter', sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; background: #f8fafc; }
+          .cert { background: white; padding: 60px; border: 12px solid #6366F1; text-align: center; width: 800px; box-shadow: 0 20px 40px rgba(0,0,0,0.1); border-radius: 16px; position: relative; overflow: hidden; }
+          .cert::before { content: ''; position: absolute; top: -50px; left: -50px; width: 200px; height: 200px; background: rgba(99,102,241,0.1); border-radius: 50%; }
+          .cert::after { content: ''; position: absolute; bottom: -50px; right: -50px; width: 200px; height: 200px; background: rgba(6,182,212,0.1); border-radius: 50%; }
+          h1 { color: #1e293b; font-size: 3.5rem; margin-bottom: 10px; font-weight: 800; letter-spacing: -1px; }
+          .sub { font-size: 1.25rem; color: #64748b; margin-bottom: 40px; text-transform: uppercase; letter-spacing: 2px; }
+          h2 { font-size: 2.5rem; color: #6366F1; margin: 20px 0; font-weight: 600; }
+          p { font-size: 1.2rem; color: #475569; margin: 10px 0; line-height: 1.6; }
+          .course { font-size: 2rem; color: #0f172a; font-weight: 800; margin: 20px 0 40px; }
+          .footer { margin-top: 60px; display: flex; justify-content: space-around; align-items: flex-end; }
+          .sig-box { text-align: center; }
+          .sig { border-bottom: 2px solid #cbd5e1; width: 220px; margin-bottom: 15px; height: 40px; font-family: 'Brush Script MT', cursive; font-size: 1.8rem; color: #334155; }
+          .sig-title { color: #64748b; font-size: 0.9rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+          .logo { margin-bottom: 20px; font-weight: 800; color: #6366F1; font-size: 1.5rem; }
+        </style>
+      </head>
+      <body>
+        <div class="cert">
+          <div class="logo">✦ PROJECT HORIZON</div>
+          <h1>Certificate of Completion</h1>
+          <div class="sub">This certifies that</div>
+          <h2>${currentUser ? currentUser.name : 'Learner'}</h2>
+          <p>has successfully completed the comprehensive program</p>
+          <div class="course">${title}</div>
+          <p>demonstrating exceptional skill and dedication in mastering the core concepts.</p>
+          <div class="footer">
+            <div class="sig-box">
+              <div class="sig">Ansh Sharma</div>
+              <div class="sig-title">Lead Instructor</div>
+            </div>
+            <div class="sig-box">
+              <div class="sig">Horizon Team</div>
+              <div class="sig-title">Platform Director</div>
+            </div>
+          </div>
+        </div>
+        <script>
+          setTimeout(() => { window.print(); window.close(); }, 800);
+        </script>
+      </body>
+    </html>
+  `);
 }
 
 function shareCert(id) {
@@ -368,6 +428,32 @@ function switchModule(btn, name) {
   document.querySelectorAll('.module-content').forEach(m => m.classList.add('hidden'));
   const mc = document.getElementById(`module-${name}`);
   if (mc) mc.classList.remove('hidden');
+}
+
+function startTimer(duration) {
+  let timer = duration, minutes, seconds;
+  clearInterval(timerInterval);
+  timerInterval = setInterval(function () {
+    minutes = parseInt(timer / 60, 10);
+    seconds = parseInt(timer % 60, 10);
+    minutes = minutes < 10 ? "0" + minutes : minutes;
+    seconds = seconds < 10 ? "0" + seconds : seconds;
+    
+    const display = document.getElementById('quizTimer');
+    if (display) display.textContent = minutes + ":" + seconds;
+    
+    if (--timer < 0) {
+      clearInterval(timerInterval);
+      submitQuiz();
+    }
+  }, 1000);
+}
+
+function resetQuiz() {
+  clearInterval(timerInterval);
+  document.getElementById('quiz-result-screen').classList.add('hidden');
+  document.getElementById('quiz-active-screen').classList.add('hidden');
+  document.getElementById('quiz-select-screen').classList.remove('hidden');
 }
 
 // ══════════════════════════════════════════════════
