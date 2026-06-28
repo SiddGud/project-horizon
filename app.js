@@ -473,6 +473,10 @@ function startQuiz(key) {
   renderQuestion();
 }
 
+function escapeHTML(str) {
+  return String(str).replace(/</g, '&lt;').replace(/>/g, '&gt;');
+}
+
 function renderQuestion() {
   const q = currentQuiz.questions[currentQuestion];
   document.getElementById('quizQuestion').textContent = `Q${currentQuestion + 1}. ${q.q}`;
@@ -485,7 +489,7 @@ function renderQuestion() {
   document.getElementById('quizOptions').innerHTML = q.opts.map((opt, i) => `
     <div class="quiz-option ${answers[currentQuestion] === i ? 'selected' : ''}" onclick="selectAnswer(${i})">
       <div class="opt-letter">${letters[i]}</div>
-      <span>${opt}</span>
+      <span>${escapeHTML(opt)}</span>
     </div>
   `).join('');
 }
