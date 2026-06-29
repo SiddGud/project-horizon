@@ -187,9 +187,25 @@ function showPage(name) {
   if (name === 'courses') renderCourses();
   if (name === 'dashboard') {
     if (currentUser) {
+      const dName = document.getElementById('dashFullName');
+      const dRole = document.getElementById('dashRole');
+      const wName = document.getElementById('welcomeName');
+      const dAva = document.getElementById('dashAvatar');
+      const wCourses = document.getElementById('welcomeCourses');
+      
+      if (dName) dName.textContent = currentUser.name;
+      if (dRole) dRole.textContent = currentUser.role.charAt(0).toUpperCase() + currentUser.role.slice(1);
+      if (wName) wName.textContent = currentUser.name.split(' ')[0];
+      if (dAva) {
+        dAva.textContent = currentUser.name.split(' ').map(n => n[0]).join('').substring(0,2).toUpperCase();
+      }
+      
+      const enrolledCount = currentUser.enrolledCourses ? currentUser.enrolledCourses.length : 0;
+      if (wCourses) wCourses.textContent = enrolledCount;
+
       const kpis = document.querySelectorAll('.kpi-val');
       if (kpis.length >= 4) {
-        kpis[0].textContent = currentUser.enrolledCourses ? currentUser.enrolledCourses.length : 0;
+        kpis[0].textContent = enrolledCount;
         kpis[1].textContent = currentUser.enrolledCourses ? currentUser.enrolledCourses.filter(c => c.progress === 100).length : 0;
         kpis[2].textContent = currentUser.certificates ? currentUser.certificates.length : 0;
         kpis[3].textContent = currentUser.xp || 0;

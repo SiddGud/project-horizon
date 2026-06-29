@@ -525,10 +525,10 @@
   <div class="dash-layout">
     <aside class="dash-sidebar">
       <div class="dash-user">
-        <div class="dash-avatar">AS</div>
+        <div class="dash-avatar" id="dashAvatar">AS</div>
         <div class="dash-user-info">
-          <strong>Aryan Sharma</strong>
-          <span>Student</span>
+          <strong id="dashFullName">Aryan Sharma</strong>
+          <span id="dashRole">Student</span>
         </div>
       </div>
       <div class="xp-wrap">
@@ -558,8 +558,8 @@
       <!-- OVERVIEW -->
       <div class="ds active" id="ds-overview">
         <div class="ds-header">
-          <h2>Welcome back, <span class="text-gradient">Aryan</span></h2>
-          <p>You have 2 courses in progress. Keep going!</p>
+          <h2>Welcome back, <span class="text-gradient" id="welcomeName">Aryan</span></h2>
+          <p>You have <span id="welcomeCourses">2</span> courses in progress. Keep going!</p>
         </div>
         <div class="kpi-grid">
           <div class="kpi-card">
